@@ -4,7 +4,8 @@ A graph-native route planner from the skills someone has to the career they want
 
 Career Compass models people, skills, courses, careers and companies as a connected graph, then answers questions that are naturally about *paths and neighborhoods*: "what's the shortest chain of prerequisites to my next skill?", "who's already ahead of me on this route?", "what does this career actually require, and how do those requirements connect to each other?"
 
-> **Note on this submission:** this repo is fully built and ready to run. To finish it, you need to (1) provision your own free CognoDB instance, (2) point `.env` at it, (3) run the seed script, (4) take the screenshots and screen recording the assignment asks for, and (5) deploy to a free host. Step-by-step instructions for all of that are below — should take well under an hour.
+#### 🔗 Live Demo: [career-compass-pfj8.onrender.com](https://career-compass-pfj8.onrender.com/)
+*(Free-tier hosting — the first request may take 30–60 seconds to wake the server up.)*
 
 ---
 
@@ -154,37 +155,28 @@ Open `http://localhost:3000`, pick a traveler and a destination career, and Care
 
 ---
 
-## Deploying a hosted demo (required deliverable)
+## Deployment
 
-Any free host that runs a Node process works. Two easy options:
+Live at **[career-compass-pfj8.onrender.com](https://career-compass-pfj8.onrender.com/)**, deployed as a Render free web service:
+1. Repo connected directly from GitHub.
+2. Build command: `npm install`. Start command: `npm start`.
+3. Environment variables `COGNODB_URI`, `COGNODB_USER`, `COGNODB_PASSWORD` set in Render's dashboard — never committed to the repo.
 
-**Render (free web service)**
-1. Push this repo to GitHub.
-2. On [render.com](https://render.com), New → Web Service → connect the repo.
-3. Build command: `npm install`. Start command: `npm start`.
-4. Add environment variables `COGNODB_URI`, `COGNODB_USER`, `COGNODB_PASSWORD` in the Render dashboard (never commit them).
-5. Deploy. Render gives you a public `https://your-app.onrender.com` URL.
-
-**Railway** works the same way — connect the repo, set the same three env vars, deploy.
-
-Keep your CognoDB instance running after you deploy — both the assignment and the reviewer will need live data.
+To deploy your own copy: push this repo to GitHub, create a free Web Service on [render.com](https://render.com) (or [railway.app](https://railway.app), same steps) pointing at it, set those three environment variables, and deploy.
 
 ---
 
 ## Screenshots
 
-_Add screenshots here after running the app against your live CognoDB instance — e.g. the route planner with a career selected, the readiness dial, the trail-ahead panel, and the skill map._
+<img width="1089" height="664" alt="Route planner with a career selected, showing the readiness dial and skill chips" src="https://github.com/user-attachments/assets/27033f5a-c117-444a-970e-a165da5cb05e" />
 
-```
-<img width="1089" height="664" alt="image" src="https://github.com/user-attachments/assets/27033f5a-c117-444a-970e-a165da5cb05e" />
-<img width="838" height="869" alt="image" src="https://github.com/user-attachments/assets/d3e48151-3dee-4035-bc60-704e48c74cfd" />
-<img width="885" height="827" alt="image" src="https://github.com/user-attachments/assets/7b0b46e0-e9ec-4a53-bab2-748d684b2e36" />
+<img width="838" height="869" alt="Trail ahead and Fellow travelers panels" src="https://github.com/user-attachments/assets/d3e48151-3dee-4035-bc60-704e48c74cfd" />
 
-```
+<img width="885" height="827" alt="Map of the destination career's required skills" src="https://github.com/user-attachments/assets/7b0b46e0-e9ec-4a53-bab2-748d684b2e36" />
 
 ## Screen recording
 
-https://drive.google.com/file/d/1bi6j3LedfF5t6QzB0gJ1etiJRblX7-Cs/view?usp=sharing
+[Watch the walkthrough](https://drive.google.com/file/d/1bi6j3LedfF5t6QzB0gJ1etiJRblX7-Cs/view?usp=sharing)
 
 ---
 
