@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Career Compass — plot your route through the skill graph</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+
+<div class="terrain" aria-hidden="true"></div>
+
+<header class="site-header">
+  <div class="wrap header-row">
+    <div class="brand">
+      <svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true">
+        <circle cx="20" cy="20" r="18" fill="none" stroke="currentColor" stroke-width="1.4"/>
+        <path d="M20 8 L24 20 L20 32 L16 20 Z" fill="currentColor" opacity="0.9"/>
+        <circle cx="20" cy="20" r="2.2" fill="var(--bg)"/>
+      </svg>
+      <span>Career Compass</span>
+    </div>
+    <p class="tagline">a graph-native route planner from the skills you have to the career you want</p>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="hero" id="planner">
+    <h1>Plot a route through your skill graph.</h1>
+    <p class="hero-sub">
+      Every career is a destination. Every skill is a waypoint. Career Compass walks the
+      graph — through prerequisite chains, required skills, and the people who've already
+      made the trip — to show you the shortest path from here to there.
+    </p>
+
+    <p class="graph-stats" id="graphStats" aria-live="polite"></p>
+
+    <div class="controls" role="group" aria-label="Route planner controls">
+      <label class="field">
+        <span class="field-label">Traveling as</span>
+        <select id="personSelect" aria-label="Select person">
+          <option value="">Loading people…</option>
+        </select>
+      </label>
+      <svg class="control-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <label class="field">
+        <span class="field-label">Destination career</span>
+        <select id="careerSelect" aria-label="Select destination career">
+          <option value="">Loading careers…</option>
+        </select>
+      </label>
+    </div>
+  </section>
+
+  <div id="dbError" class="banner banner-error hidden" role="alert"></div>
+
+  <section id="results" class="results hidden">
+
+    <section class="panel readiness-panel">
+      <div class="panel-head">
+        <h2>Route summary</h2>
+        <span class="eyebrow" id="careerLabel"></span>
+      </div>
+      <div class="readiness-row">
+        <div class="readiness-dial" id="readinessDial">
+          <svg viewBox="0 0 120 120" aria-hidden="true">
+            <circle cx="60" cy="60" r="50" fill="none" stroke="var(--border)" stroke-width="10"/>
+            <circle id="readinessArc" cx="60" cy="60" r="50" fill="none" stroke="var(--accent)" stroke-width="10" stroke-linecap="round" transform="rotate(-90 60 60)"/>
+          </svg>
+          <div class="readiness-number"><span id="readinessValue">0</span>%</div>
+        </div>
+        <div class="readiness-copy">
+          <p id="readinessText">Choose a traveler and a destination to see how ready they are.</p>
+          <div class="legend">
+            <span class="legend-item"><i class="dot dot-have"></i> waypoint reached</span>
+            <span class="legend-item"><i class="dot dot-missing"></i> waypoint ahead</span>
+          </div>
+        </div>
+      </div>
+      <div class="skill-trail" id="skillTrail"></div>
+    </section>
+
+    <section class="panel-grid">
+      <section class="panel">
+        <div class="panel-head">
+          <h2>Trail ahead</h2>
+          <span class="eyebrow">skills within reach next</span>
+        </div>
+        <p class="panel-note">Skills this traveler could unlock by walking 1–3 prerequisite hops from what they already know.</p>
+        <ul class="waypoint-list" id="unlockableList"></ul>
+        <p class="empty-state hidden" id="unlockableEmpty">No new waypoints yet — this traveler's known skills don't lead anywhere new in the graph. Try a different traveler.</p>
+      </section>
+
+      <section class="panel">
+        <div class="panel-head">
+          <h2>Fellow travelers</h2>
+          <span class="eyebrow">people on a similar route</span>
+        </div>
+        <p class="panel-note">People who share the most skills with this traveler, and what they know that this traveler doesn't yet.</p>
+        <ul class="peer-list" id="peerList"></ul>
+        <p class="empty-state hidden" id="peerEmpty">No overlapping travelers found in the graph yet.</p>
+      </section>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head">
+        <h2>Map of the destination</h2>
+        <span class="eyebrow" id="graphCareerLabel"></span>
+      </div>
+      <p class="panel-note">Required skills for this career, and how they connect through prerequisite chains.</p>
+      <div class="graph-wrap">
+        <svg id="graphSvg" viewBox="0 0 640 460" role="img" aria-label="Skill map"></svg>
+      </div>
+      <div class="graph-legend" id="graphLegend"></div>
+    </section>
+
+  </section>
+
+  <section id="loadingState" class="loading-state hidden">
+    <div class="compass-spin" aria-hidden="true">
+      <svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="17" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M20 9 L23 20 L20 31 L17 20 Z" fill="currentColor"/></svg>
+    </div>
+    <p>Charting the route…</p>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p>Career Compass — built on CognoDB. Data models people, skills, courses, careers and companies as a graph.</p>
+  </div>
+</footer>
+
+<script src="/app.js"></script>
+</body>
+</html>
