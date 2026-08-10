@@ -176,13 +176,15 @@ Keep your CognoDB instance running after you deploy — both the assignment and 
 _Add screenshots here after running the app against your live CognoDB instance — e.g. the route planner with a career selected, the readiness dial, the trail-ahead panel, and the skill map._
 
 ```
-![Route planner](./screenshots/route-planner.png)
-![Skill map](./screenshots/skill-map.png)
+<img width="1089" height="664" alt="image" src="https://github.com/user-attachments/assets/27033f5a-c117-444a-970e-a165da5cb05e" />
+<img width="838" height="869" alt="image" src="https://github.com/user-attachments/assets/d3e48151-3dee-4035-bc60-704e48c74cfd" />
+<img width="885" height="827" alt="image" src="https://github.com/user-attachments/assets/7b0b46e0-e9ec-4a53-bab2-748d684b2e36" />
+
 ```
 
 ## Screen recording
 
-_Add a link here (Loom, YouTube unlisted, etc.) showing: selecting a traveler and career, the gap analysis updating, the trail-ahead and peer panels, and the skill map._
+https://drive.google.com/file/d/1bi6j3LedfF5t6QzB0gJ1etiJRblX7-Cs/view?usp=sharing
 
 ---
 
